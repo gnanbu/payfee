@@ -1,0 +1,23 @@
+<div class="greybox">
+<h1>Your kids School</h1>
+
+<table class="table table-striped">
+    <thead >
+    <tr>
+        <th>Name</td>
+        <th>Standard</td>
+        <td><a href= "/addStudent" ><i class="icon-plus-sign"  ></i> </a></td>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="student in students" >
+        <td>{{student.name}}</td>
+        <td>{{student.standard}}</td>
+        <td><a href="/editStudent/{{$index}}"><i class="icon-edit"></i></a></td>
+        <td><i class="icon-remove-sign" ng-click="deleteStudent($index)"></i></td>
+        <td><a href="/payfee/{{$index}}"><i class="icon-arrow-right"></i>pay fee</a></td>
+    </tr>
+    </tbody>
+</table>
+    </div>
