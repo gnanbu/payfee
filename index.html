@@ -10,10 +10,14 @@
     <script type="text/javascript" src="js/xlsx-reader.js"></script>
 
     <script src="lib/angular.js"></script>
+    <script src="js/module/promise-tracker.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <!--  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+     <script src="js/igTypeahead.js"></script> -->
     <script src="lib/angular-route.js"></script>
     <script src="lib/angular-resource.js"></script>
-
     <script src="js/app.js"></script>
+
     <link rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="css/navigataur.css"/>
    <script src="https://app.userapp.io/js/userapp.client.js"></script>
@@ -35,11 +39,12 @@
             <ul class="menu">
                 <li><a href="/" >Home</a></li>
                 <li><a href="#">Pay Fee</a></li>
-                <li><a href="#">Contact us</a></li>
+                <li><a href="/contact-us">Contact us</a></li>
                 <li><a href="/adminupload">Admin</a></li>
                 <li><a href="#" ua-logout>Log Out</a></li>
             </ul>
             <div ng-show="user.authenticated" >Welcome {{ user.email }}!</div>
+
         </div>
 
         <h1>Pay Fee</h1>

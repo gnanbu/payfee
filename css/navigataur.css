@@ -75,6 +75,10 @@ h2 {
     float: left;
 }
 
+.form-group {
+   /* display: inline;*/
+}
+
 p > a {
     font-style: italic;
     font-family: Georgia;
@@ -113,9 +117,19 @@ p > a {
 	height: 100%; 
 }
 
-.input-text {
+.button {
     width:50%;
 }
+
+.typeahead-cls {
+    position: absolute;
+    overflow: visible;
+    background: white;
+    outline: 1px solid rgba(0, 0, 0, 0.2);
+    height: 150px;
+    width: 16%;
+}
+
 .menu > li > a{
 	display: block;
 	padding: 42px 20px;
@@ -203,4 +217,31 @@ p > a {
 	.toggle:after { 
 		text-align: center; width: 100%; 
 	}
+}
+
+.divTable
+{
+    display:  table;
+    width:auto;
+
+    border:1px solid  #666666;
+    border-spacing:5px;/*cellspacing:poor IE support for  this*/
+    /* border-collapse:separate;
+     background-color:#eee;*/
+}
+
+.divRow
+{
+    display:table-row;
+    width:auto;
+
+}
+
+.divCell
+{
+    float:left;/*fix for  buggy browsers*/
+    display:table-column;
+    width:200px;
+    /*background-color:#ccc;*/
+
 }
