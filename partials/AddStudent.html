@@ -4,40 +4,43 @@
 
 
     <div  class="divRow" ng-controller="TypeaheadCtrl">
-        <div class="divCell">  <h1>Country</h1> </div>
+        <div class="divCell">  <h2>Country</h2> </div>
         <div class="divCell">
         <span class="label label-danger" data-ng-show="submitted &amp;&amp; helpForm.name.$error.required" style="display: none;">Required!</span>
             <input type="text" ng-model="selected" typeahead="country as country.CountryDesc for country in countries | filter:$viewValue | limitTo:8" class="form-control" style="margin-top: 10px;">
             </div>
     </div>
-<div class="divRow"  ng-controller="TypeAheadController">
-        <div class="divCell">  <h1>State</h1></div>
+<div class="divRow"  ng-controller="TypeaheadCtrl">
+        <div class="divCell">  <h2>State</h2></div>
         <div class="divCell">
             <input type="text" ng-model="selected" typeahead="state as state.StateDesc for state in states | filter:$viewValue | limitTo:8" class="form-control" style="margin-top: 10px;">
             </div>
     </div>
     <div class="divRow" >
-        <div class="divCell"><h1>School</h1></div>
+        <div class="divCell"><h2>School</h2></div>
         <span class="label label-danger" data-ng-show="submitted &amp;&amp; helpForm.name.$error.required" style="display: none;">Required!</span>
-            <div class="divCell" style="margin-top: 10px;"><select  class="input-text" name="school" ng-model="student.school" placeholder="Select School" ng-options="obj.schoolId as obj.schoolName for obj in myForm.schools" ></select>
+            <div class="divCell" style="margin-top: 10px;"><select  class="input-text" name="school" ng-model="student.schoolId" placeholder="Select School" ng-options="obj.schoolId as obj.schoolName for obj in myForm.schools" ></select>
         </div>
             </div>
 
     <div class="divRow" >
-        <div class="divCell"><h1>Student Standard</h1> </div>
+        <div class="divCell"><h2>Student Standard</h2> </div>
         <div class="divCell" >
             <select   class="input-text" name ="standard" ng-model="student.standard" placeholder="Enter Standard" ng-options="obj.id as obj.name for obj in myForm.standards" style="margin-top: 10px;"> </select>
 
             </div>
         </div>
 
-    <div class="divRow" >
-        <div class="divCell">   <h1>Student Name</h1></div>
-            <div class="divCell"> <input  class="input-text" type="text" name="name" ng-model="student.name" placeholder="Enter Name" style="margin-top: 10px;"/></div>
+    <div class="divRow"  ng-controller="TypeaheadCtrl">
+        <div class="divCell">   <h2>Student Name</h2></div>
+
+            <div class="divCell">
+                <input  class="input-text"  type="text" name="name" typeahead="o.Name as o.Name for o in getStudent($viewValue) | filter:$viewValue" ng-model="student.name" autocomplete="off" placeholder="Enter Name" style="margin-top: 10px;"
+                        typeahead-input-formatter="formatLabel($model)" /></div>
      </div>
 
 
-   <div  >
+   <div >
        <button  class="button"  ng-click="save()" class="btn-primary">Save</button>
     </div>
 </form>

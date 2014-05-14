@@ -2,20 +2,20 @@
     <div id="messages" class="alert alert-success" data-ng-show="messages" data-ng-bind="messages"></div>
     <form name="helpForm" novalidate role="form">
         <div class="form-group">
-            <h2>Your Name </h2>
+            <label for="name">Your Name </label>
             <span class="label label-danger" data-ng-show="submitted && helpForm.name.$error.required">Required!</span>
             <input type="text" name="name" data-ng-model="name" class="form-control" required />
         </div>
 
         <div class="form-group">
-            <h2>Your E-mail address</h2>
+            <label for="email">Your E-mail address</label>
             <span class="label label-danger" data-ng-show="submitted && helpForm.email.$error.required">Required!</span>
             <span class="label label-danger" data-ng-show="submitted && helpForm.$error.email">Invalid email!</span>
             <input type="email" name="email" data-ng-model="email" class="form-control" required />
         </div>
 
         <div class="form-group">
-            <h2>What is the nature of your request?</h2>
+            <label for="subjectList">What is the nature of your request?</label>
             <span class="label label-danger" data-ng-show="submitted && helpForm.subjectList.$error.required">Required!</span>
             <select name="subjectList" data-ng-model="subjectList" data-ng-options="id as value for (id, value) in subjectListOptions" class="form-control" required>
                 <option value=""></option>
@@ -23,13 +23,13 @@
         </div>
 
         <div class="form-group">
-            <h2>URL of Relevant Page</h2>
+            <label for="url">URL of Relevant Page</label>
             <span class="label label-danger" data-ng-show="submitted && helpForm.$error.url">Invalid URL format!</span>
             <input type="url" name="url" data-ng-model="url" class="form-control" />
         </div>
 
         <div class="form-group">
-            <h2>Description</h2>
+            <label for="comments">Description</label>
             <span class="label label-danger" data-ng-show="submitted && helpForm.comments.$error.required">Required!</span>
             <textarea name="comments" data-ng-model="comments" class="form-control" required></textarea>
         </div>
