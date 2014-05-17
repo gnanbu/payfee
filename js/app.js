@@ -24,10 +24,17 @@ $locationProvider.html5Mode(true);
         $routeProvider.otherwise({redirectTo: '/'});
 })
 
-app.run(function($rootScope, user) {
+app.run(function($rootScope,user) {
     user.init({ appId: '53441326d7e76' });
+   user.role= UserApp.Permission.get({
+        "permission_id": "admin"
+    }, function(error, result){
+        // Handle error/result
+
+    });
     $rootScope.students= [];
     $rootScope.o=[];
+
 });
 
 app.factory('FeeService',['$resource',function($resource){
@@ -43,7 +50,25 @@ app.factory('FeeService',['$resource',function($resource){
 
 app.factory('SchoolService',['$resource',function($resource){
 
-    return $resource('http://16.162.70.242:8080/payFee/api/payfeeservice/getSchool',{},{});
+    return $resource('http://16.162.70.242:8080/payFee/api/payfeeservice/getSchool',{},{query:{  method:'JSONP'}});
+}]);
+
+app.factory('StudentService',['$http',function($http){
+
+//    return $resource('http://16.162.70.242:8080/payFee/api/payfeeservice/getStudentsListForUser',{q:'@parentEmailId'},
+//        {query:
+//            {
+//                   method:'JSONP',
+//                isArray:true
+//            }
+//        });
+    return {
+        getJson:function(){
+            return $http.get('http://16.162.70.242:8080/payFee/api/payfeeservice/getStudentsListForUser?q:')
+        }
+    }
+
+
 }]);
 
  function PayFeeCtrl($scope,$location,$routeParams ) {
@@ -154,16 +179,42 @@ function EditStudentCtrl($scope,$location,$routeParams,$http ) {
 
 }
 
-function schoolCtrl($scope,$rootScope,FeeService,SchoolService){
+function schoolCtrl($scope,$rootScope,FeeService,SchoolService,$http){
     $scope.myForm = {};
+    //var myStudents = StudentService.query({q:$rootScope.user.email});
+    var studentsList = $http.jsonp("http://16.162.70.242:8080/payFee/api/payfeeservice/getStudentsListForUser?callback=JSON_CALLBACK&q="+$rootScope.user.email).then(
+        //   return $http.jsonp("http://16.162.70.242:8080/payFee/api/payfeeservice/getStudentName?callback=JSON_CALLBACK &filter=US&q="+studentName).then(
+        function(response){
+            $scope.students=response.data;
+//            return limitToFilter(response.data, 15);
+console.log(response);
+            return response;
+        });
+    console.log(studentsList);
+   // $scope.students = myStudents
+
 // Model for your selected item
     $scope.selection;
   //  FeeService.get();
-    var schoolList = SchoolService.query();
-    $scope.myForm.schools = schoolList;
+    //var schoolList = SchoolService.query();
+
+    var schoolsList = $http.jsonp("http://16.162.70.242:8080/payFee/api/payfeeservice/getSchool?callback=JSON_CALLBACK").then(
+        //   return $http.jsonp("http://16.162.70.242:8080/payFee/api/payfeeservice/getStudentName?callback=JSON_CALLBACK &filter=US&q="+studentName).then(
+        function(response){
+           // $scope.students=response.data;
+            $scope.myForm.schools = response.data;
+//            return limitToFilter(response.data, 15);
+            console.log(response);
+            return response;
+        });
+
     $scope.myForm.standards= [
         {id:"0",name:"select"},{id:"1",name:"I"},{id:"2",name:"II"},{id:"3",name:"III"}
     ]
+
+
+        //[{"id":37,"schoolName":"Saraswathi Vidyalaya Matriculation Higher Secondary School","standard":"1","name":"Anba","schoolId":"1000","parentEmailId":"prasath_adams@yahoo.com"},{"id":38,"schoolName":"Saraswathi Vidyalaya Matriculation Higher Secondary School","standard":"1","name":"Uma","schoolId":"1000","parentEmailId":"prasath_adams@yahoo.com"}];
+   // console.log("my students "+myStudents.getLocation(0));
 
     $scope.deleteStudent = function(idx){
        $scope.students.splice(idx,1);
@@ -218,7 +269,7 @@ function helpCtrl($scope, $http, $log, promiseTracker, $timeout){
         };
 
         // Perform JSONP request.
-        $http.jsonp('response.json', config)
+        $http.jsonp('http://localhost:8080/school-ws/api/school/fee/contactUs', config)
             .success(function(data, status, headers, config) {
                 if (data.status == 'OK') {
                     $scope.name = null;
